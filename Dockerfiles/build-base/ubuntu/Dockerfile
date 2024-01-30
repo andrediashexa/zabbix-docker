@@ -45,11 +45,17 @@ RUN set -eux && \
             git \
             golang-1.18 \
             unzip \
-            unixodbc-dev" && \
+            unixodbc-dev \
+            python3 \
+            python3-pip \
+            python-is-python3 \
+            git" && \
     apt-get -y update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y \
+    apt-get -y \
             --no-install-recommends install \
         ${INSTALL_PKGS} && \
     apt-get -y autoremove && \
     apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    git clone https://github.com/ableev/Zabbix-in-Telegram.git /usr/lib/zabbix/alertscripts/ && \
+    pip install -r /usr/lib/zabbix/alertscripts/requirements.txt
